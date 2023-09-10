@@ -329,6 +329,7 @@ class Pattern {
   isOptional: boolean;
   anyType: boolean = false;
   notType: boolean = false;
+  hasType: boolean = true;
 
   constructor(pattern: string) {
     this.type = pattern.match(/^[\w*~]+/)![0];

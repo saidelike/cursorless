@@ -20,6 +20,21 @@ class NotType extends QueryPredicateOperator<NotType> {
 }
 
 /**
+ * A predicate operator that returns true if the node is of the given type.
+ * For example, `(type? @foo string comment)` will reject the match if the `@foo`
+ * capture is other than `string` or `comment` node. It is particularly useful
+ * to pass in multiple types as to allow specifying multiple node types to match
+ * since scm has a limitation otherwise
+ */
+class HasType extends QueryPredicateOperator<HasType> {
+  name = "has-type?" as const;
+  schema = z.tuple([q.node, q.string]).rest(q.string);
+  run({ node }: MutableQueryCapture, ...types: string[]) {
+    return types.includes(node.type);
+  }
+}
+
+/**
  * A predicate operator that returns true if the nodes range is not empty.
  */
 class NotEmpty extends QueryPredicateOperator<NotEmpty> {
@@ -179,6 +194,7 @@ class InsertionDelimiter extends QueryPredicateOperator<InsertionDelimiter> {
 
 export const queryPredicateOperators = [
   new NotType(),
+  new HasType(),
   new NotEmpty(),
   new NotParentType(),
   new IsNthChild(),
