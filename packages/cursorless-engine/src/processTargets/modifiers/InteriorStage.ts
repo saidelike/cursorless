@@ -14,10 +14,11 @@ export class InteriorOnlyStage implements ModifierStage {
   ) {}
 
   run(target: Target): Target[] {
-    return this.modifierStageFactory
+    const targets = this.modifierStageFactory
       .create(containingSurroundingPairIfUntypedModifier)
       .run(target)
       .flatMap((target) => target.getInteriorStrict());
+    return targets;
   }
 }
 

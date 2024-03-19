@@ -33,7 +33,8 @@ export function registerCommands(
     // The core Cursorless command
     [CURSORLESS_COMMAND_ID]: async (...args: unknown[]) => {
       try {
-        return await commandApi.runCommandSafe(...args);
+        const result = await commandApi.runCommandSafe(...args);
+        return result;
       } catch (e) {
         if (!isTesting()) {
           const err = e as Error;

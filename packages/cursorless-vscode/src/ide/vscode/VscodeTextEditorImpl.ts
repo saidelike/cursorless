@@ -42,6 +42,10 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     private editor: vscode.TextEditor,
   ) {
     this.document = new VscodeTextDocumentImpl(editor.document);
+
+    console.warn(
+      `VscodeTextEditorImpl(): document.getText()=${editor.document.getText()}`,
+    );
   }
 
   get vscodeEditor(): vscode.TextEditor {
@@ -53,6 +57,12 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
   }
 
   async setSelections(selections: Selection[]): Promise<void> {
+    for (let i = 0; i < selections.length; ++i) {
+      console.warn(
+        `setting selections[${i}]=(${selections[i].start.line},${selections[i].start.character}),(${selections[i].end.line},${selections[i].end.character})`,
+      );
+    }
+
     this.editor.selections = selections.map(toVscodeSelection);
   }
 

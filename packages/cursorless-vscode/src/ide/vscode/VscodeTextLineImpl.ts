@@ -10,6 +10,7 @@ export default class VscodeTextLineImpl implements TextLine {
   }
 
   get text(): string {
+    console.warn(`VscodeTextLineImpl.text()='${this.line.text}'`);
     return this.line.text;
   }
 
@@ -26,6 +27,9 @@ export default class VscodeTextLineImpl implements TextLine {
   }
 
   get lastNonWhitespaceCharacterIndex(): number {
+    console.warn(
+      `VscodeTextLineImpl.lastNonWhitespaceCharacterIndex() index=${this.line.range.end.character}`,
+    );
     return this.line.text.trimEnd().length;
   }
 

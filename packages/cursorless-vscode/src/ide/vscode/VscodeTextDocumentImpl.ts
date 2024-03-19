@@ -44,13 +44,17 @@ export class VscodeTextDocumentImpl implements TextDocument {
   constructor(private document: vscode.TextDocument) {}
 
   public lineAt(lineOrPosition: number | Position): TextLine {
-    return new VscodeTextLineImpl(
-      this.document.lineAt(
-        typeof lineOrPosition === "number"
-          ? lineOrPosition
-          : lineOrPosition.line,
-      ),
+    const line =
+      typeof lineOrPosition === "number" ? lineOrPosition : lineOrPosition.line;
+    console.warn(`lineAt() lineOrPosition=${line}`);
+    const impl = new VscodeTextLineImpl(this.document.lineAt(line));
+    console.warn(
+      `VscodeTextLineImpl() lineNumber=${impl.lineNumber} text='${impl.text}' range=${impl.range}, rangeIncludingLineBreak=${impl.rangeIncludingLineBreak}`,
     );
+    console.warn(
+      `VscodeTextLineImpl.firstNonWhitespaceCharacterIndex=${impl.firstNonWhitespaceCharacterIndex}`,
+    );
+    return impl;
   }
 
   public offsetAt(position: Position): number {
