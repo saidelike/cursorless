@@ -65,6 +65,10 @@ suite("recorded test cases", async function () {
       asyncSafety(() => runTest(path, getSpy()!)),
     ),
   );
+  // await runTest(
+  //   "C:\\cursorless\\packages\\cursorless-vscode-e2e\\src\\suite\\fixtures\\recorded\\selectionTypes\\clearRowTwoPastFour.yml",
+  //   getSpy()!,
+  // );
 });
 
 async function runTest(file: string, spyIde: SpyIDE) {
