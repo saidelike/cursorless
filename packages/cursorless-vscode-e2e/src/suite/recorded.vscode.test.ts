@@ -44,6 +44,9 @@ function createPosition(position: PositionPlainObject) {
 }
 
 function createSelection(selection: SelectionPlainObject): vscode.Selection {
+  console.warn(
+    `createSelection(): selection=(${selection.anchor.line},${selection.anchor.character}),(${selection.active.line},${selection.active.character})`,
+  );
   const active = createPosition(selection.active);
   const anchor = createPosition(selection.anchor);
   return new vscode.Selection(anchor, active);
@@ -59,12 +62,18 @@ suite("recorded test cases", async function () {
     setupFake(ide, HatStability.stable);
   });
 
-  getRecordedTestPaths().forEach(({ name, path }) =>
+  // getRecordedTestPaths().forEach(({ name, path }) =>
+  //   test(
+  //     name,
+  //     asyncSafety(() => runTest(path, getSpy()!)),
+  //   ),
+  // );
+  for (const { name, path } of getRecordedTestPaths()) {
     test(
       name,
       asyncSafety(() => runTest(path, getSpy()!)),
-    ),
-  );
+    );
+  }
   // await runTest(
   //   "C:\\cursorless\\packages\\cursorless-vscode-e2e\\src\\suite\\fixtures\\recorded\\selectionTypes\\clearRowTwoPastFour.yml",
   //   getSpy()!,

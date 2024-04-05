@@ -53,7 +53,13 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
   }
 
   get selections(): Selection[] {
-    return this.editor.selections.map(fromVscodeSelection);
+    const selections = this.editor.selections.map(fromVscodeSelection);
+    for (let i = 0; i < selections.length; ++i) {
+      console.warn(
+        `getting selections[${i}]=(${selections[i].start.line},${selections[i].start.character}),(${selections[i].end.line},${selections[i].end.character})`,
+      );
+    }
+    return selections;
   }
 
   async setSelections(selections: Selection[]): Promise<void> {

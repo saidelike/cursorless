@@ -9,10 +9,17 @@ export default async function vscodeEdit(
   return await editor.edit((editBuilder) => {
     edits.forEach(({ range, text, isReplace }) => {
       if (text === "") {
+        console.warn(`vscodeDelete(): range=${JSON.stringify(range)}`);
         editBuilder.delete(toVscodeRange(range));
       } else if (range.isEmpty && !isReplace) {
+        console.warn(
+          `vscodeInsert(): position=${JSON.stringify(range.start)}, text='${text}'`,
+        );
         editBuilder.insert(toVscodePosition(range.start), text);
       } else {
+        console.warn(
+          `vscodeReplace(): position=${JSON.stringify(range)}, text='${text}'`,
+        );
         editBuilder.replace(toVscodeRange(range), text);
       }
     });
