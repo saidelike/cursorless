@@ -43,9 +43,9 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
   ) {
     this.document = new VscodeTextDocumentImpl(editor.document);
 
-    console.warn(
-      `VscodeTextEditorImpl(): document.getText()=${editor.document.getText()}`,
-    );
+    // console.warn(
+    //   `VscodeTextEditorImpl(): document.getText()=${editor.document.getText()}`,
+    // );
   }
 
   get vscodeEditor(): vscode.TextEditor {
@@ -73,7 +73,13 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
   }
 
   get visibleRanges(): Range[] {
-    return this.editor.visibleRanges.map(fromVscodeRange);
+    const ranges = this.editor.visibleRanges.map(fromVscodeRange);
+    for (let i = 0; i < ranges.length; ++i) {
+      console.warn(
+        `getting visibleRanges[${i}]=(${ranges[i].start.line},${ranges[i].start.character}),(${ranges[i].end.line},${ranges[i].end.character})`,
+      );
+    }
+    return ranges;
   }
 
   get options(): TextEditorOptions {
