@@ -62,13 +62,30 @@ suite("recorded test cases", async function () {
     setupFake(ide, HatStability.stable);
   });
 
-  // getRecordedTestPaths().forEach(({ name, path }) =>
+  const tests = getRecordedTestPaths();
+  // tests.forEach(({ name, path }) =>
   //   test(
   //     name,
   //     asyncSafety(() => runTest(path, getSpy()!)),
   //   ),
   // );
-  for (const { name, path } of getRecordedTestPaths()) {
+  // const fixturePath =
+  //   "C:\\cursorless_original\\packages\\cursorless-vscode-e2e\\src\\suite\\fixtures\\";
+  // const tests = [
+  // {
+  //   name: "recorded/updateSelections/chuckSecondPastThirdCar",
+  //   path: `${fixturePath}recorded\\updateSelections\\chuckSecondPastThirdCar.yml`,
+  // },
+  // {
+  //   name: "recorded/actions/cloneToken",
+  //   path: `${fixturePath}recorded\\actions\\cloneToken.yml`,
+  // },
+  //   {
+  //     name: "recorded/selectionTypes/clearWord2",
+  //     path: `${fixturePath}recorded\\selectionTypes\\clearWord2.yml`,
+  //   },
+  // ];
+  for (const { name, path } of tests) {
     test(
       name,
       asyncSafety(() => runTest(path, getSpy()!)),
