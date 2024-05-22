@@ -3,10 +3,10 @@ set -euo pipefail
 
 # Clone current cursorless.nvim main
 mkdir -p dist && cd dist
-git clone 'https://github.com/hands-free-vim/cursorless.nvim.git'
+git clone 'https://github.com/hands-free-vim/cursorless.nvim.git' cursorless.nvim-remote
 cd -
 
-out_dir=dist/cursorless.nvim
+out_dir=dist/cursorless.nvim-remote
 
 # Delete the old files
 cd "$out_dir"
@@ -17,12 +17,11 @@ cd -
 # Merge the build .js and the static files
 #
 
-# copy .lua and .vim dependencies as well as other static files
+# copy .lua, .vim dependencies, command-server and other static files
 cp -r cursorless.nvim/README.md "$out_dir/"
 cp -r cursorless.nvim/assets "$out_dir/"
 cp -r cursorless.nvim/lua "$out_dir/"
 cp -r cursorless.nvim/vim "$out_dir/"
-# command-server
 cp -r cursorless.nvim/node "$out_dir/"
 
 # copy the built .js file
