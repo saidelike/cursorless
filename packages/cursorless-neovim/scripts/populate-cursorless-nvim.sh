@@ -11,7 +11,7 @@ cp -r "$in_dir/README.md" "$out_dir/"
 cp -r "$in_dir/assets" "$out_dir/"
 cp -r "$in_dir/lua" "$out_dir/"
 cp -r "$in_dir/vim" "$out_dir/"
-cp -r "$in_dir/node/command-server" "$out_dir/node/command-server"
+cp -r "$in_dir/node/command-server" "$out_dir/node/"
 
 # copy the built .js file
 cp package.json "$out_dir/node/cursorless-neovim/"

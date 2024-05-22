@@ -83,7 +83,7 @@ var NativeIo = class {
   }
   async initialize() {
     const communicationDirPath = getCommunicationDirPath();
-    console.warn(`Creating communication dir ${communicationDirPath}`);
+    console.log(`Creating communication dir ${communicationDirPath}`);
     (0, import_fs.mkdirSync)(communicationDirPath, { recursive: true, mode: 504 });
     const stats = (0, import_fs.lstatSync)(communicationDirPath);
     const info = (0, import_os2.userInfo)();
@@ -196,7 +196,7 @@ var CommandRunner = class {
    * types.
    */
   async runCommand() {
-    console.warn("------------------------------------------------------------------------------");
+    console.log("------------------------------------------------------------------------------");
     await this.io.prepareResponse();
     let request;
     try {
@@ -279,9 +279,6 @@ async function activate() {
 // src/index.ts
 function entry(plugin) {
   plugin.setOptions({ dev: false });
-  plugin.registerFunction("CommandServerTest", () => test(plugin), {
-    sync: false
-  });
   plugin.registerFunction(
     "CommandServerLoadExtension",
     async () => await loadExtension(plugin),
@@ -293,19 +290,14 @@ function entry(plugin) {
     { sync: false }
   );
 }
-function test(plugin) {
-  const currentDate = /* @__PURE__ */ new Date();
-  const currentDateStr = currentDate.toLocaleString();
-  console.warn("test(): " + currentDateStr);
-}
 async function loadExtension(plugin) {
-  console.warn("loadExtension(command-server): start");
+  console.log("loadExtension(command-server): start");
   await activate();
-  console.warn("loadExtension(command-server): done");
+  console.log("loadExtension(command-server): done");
 }
 async function runCommand() {
-  console.warn("runCommand(command-server): start");
+  console.log("runCommand(command-server): start");
   commandRunner().runCommand();
-  console.warn("runCommand(command-server): done");
+  console.log("runCommand(command-server): done");
 }
 //# sourceMappingURL=index.cjs.map
