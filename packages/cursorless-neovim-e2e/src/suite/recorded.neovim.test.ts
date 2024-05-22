@@ -43,23 +43,10 @@ suite("recorded test cases", async function () {
   const { getSpy, getNeovimIDE } = endToEndTestSetup(this);
 
   suiteSetup(async () => {
-    // Necessary because opening a notebook opens the panel for some reason
-    // await vscode.commands.executeCommand("workbench.action.closePanel");
     const { ide } = (await getCursorlessApi()).testHelpers!;
-    // setupFake(ide, HatStability.stable);
   });
 
-  // Run all tests
   const tests = getRecordedTestPaths();
-
-  // Run some tests
-  // const fixturePath = getFixturesPath();
-  // const tests = [
-  //   {
-  //     name: "recorded/actions/changeNextInstanceChar",
-  //     path: `${fixturePath}/recorded/actions/changeNextInstanceChar.yml`,
-  //   },
-  // ];
 
   for (const { name, path } of tests) {
     test(
@@ -67,12 +54,6 @@ suite("recorded test cases", async function () {
       asyncSafety(() => runTest(this, name, path, getSpy()!, getNeovimIDE()!)),
     );
   }
-  // getRecordedTestPaths().forEach(({ name, path }) =>
-  //   test(
-  //     name,
-  //     asyncSafety(() => runTest(path, getSpy()!, getNeovimIDE()!)),
-  //   ),
-  // );
 });
 
 async function runTest(
@@ -92,16 +73,6 @@ async function runTest(
     return suite.ctx.skip();
   }
 
-  // Uncomment below for debugging
-  // if (name === "recorded/implicitExpansion/chuckBoundingThat") {
-  //   console.debug(`runTest(${name}) => let's analyze it`);
-  // }
-
-  console.debug(
-    "------------------------------------------------------------------------------",
-  );
-  console.debug(`runTest(${file})...`);
-
   // FIXME The snapshot gets messed up with timing issues when running the recorded tests
   // "Couldn't find token default.a"
   const usePrePhraseSnapshot = false;
@@ -118,9 +89,6 @@ async function runTest(
       languageId: fixture.languageId,
     },
   );
-
-  // Override any user settings and make sure tests run with default tabs.
-  //editor.options = DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST;
 
   if (fixture.postEditorOpenSleepTimeMs != null) {
     await sleepWithBackoff(fixture.postEditorOpenSleepTimeMs);
@@ -144,10 +112,6 @@ async function runTest(
       ? undefined
       : fixture.focusedElementType ?? "textEditor",
   );
-
-  // NOT NEEDED FOR NOW
-  // Ensure that the expected hats are present
-  // Assert that recorded decorations are present
 
   let returnValue: unknown;
   let fallback: Fallback | undefined;
