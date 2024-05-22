@@ -12,8 +12,12 @@ import type { NeovimClient, NvimPlugin } from "neovim";
 // FIXME: this is neovim specific atm so in the future we can support other apps here
 // with an environment variable
 export async function run(plugin: NvimPlugin): Promise<void> {
-  // https://github.com/mochajs/mocha/issues/3780#issuecomment-583064196
-  // https://stackoverflow.com/questions/69427050/how-to-extend-globalthis-global-type
+  /**
+   * We need to pass the neovim client to the tests that are executed through mocha,
+   * so we add it to the global object.
+   * @see https://github.com/mochajs/mocha/issues/3780#issuecomment-583064196
+   * @see https://stackoverflow.com/questions/69427050/how-to-extend-globalthis-global-type
+   */
   const client = plugin.nvim as NeovimClient;
   (global as any).additionalParameters = {
     client: client,

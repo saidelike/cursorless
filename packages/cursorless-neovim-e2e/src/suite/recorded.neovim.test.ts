@@ -63,6 +63,10 @@ async function runTest(
   spyIde: SpyIDE,
   neovimIDE: NeovimIDE,
 ) {
+  /**
+   * The neovim client is set by the test runner in test-harness/src/index.ts into the global object.
+   * This allows us to access it in the tests that are executed through mocha.
+   */
   const client = (global as any).additionalParameters.client;
 
   const buffer = await fsp.readFile(file);
