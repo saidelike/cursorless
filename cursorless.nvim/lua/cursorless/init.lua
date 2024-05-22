@@ -12,7 +12,10 @@ end
 -- in order to initialize them
 local function load_extensions()
   vim.api.nvim_call_function('CursorlessLoadExtension', {})
-  vim.api.nvim_call_function('CommandServerLoadExtension', {})
+
+  if os.getenv('CURSORLESS_MODE') ~= 'test' then
+    vim.api.nvim_call_function('CommandServerLoadExtension', {})
+  end
 
   if os.getenv('CURSORLESS_MODE') == 'test' then
     -- make sure cursorless is loaded before starting the tests

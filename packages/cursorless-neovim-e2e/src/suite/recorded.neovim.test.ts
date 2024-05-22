@@ -56,8 +56,8 @@ suite("recorded test cases", async function () {
   // const fixturePath = getFixturesPath();
   // const tests = [
   //   {
-  //     name: "recorded/actions/insertEmptyLines/dropThis",
-  //     path: `${fixturePath}/recorded/actions/insertEmptyLines/dropThis.yml`,
+  //     name: "recorded/actions/changeNextInstanceChar",
+  //     path: `${fixturePath}/recorded/actions/changeNextInstanceChar.yml`,
   //   },
   // ];
 
