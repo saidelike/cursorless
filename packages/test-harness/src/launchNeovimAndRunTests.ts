@@ -24,7 +24,7 @@ export async function launchNeovimAndRunTests() {
     const useLegacyVscode =
       getEnvironmentVariableStrict("APP_VERSION") === "legacy";
 
-    const cli = getEnvironmentVariableStrict("APP_PATH");
+    const cli = getEnvironmentVariableStrict("NEOVIM_PATH");
 
     let nvimFolder = "";
     const initLuaFile = `${getCursorlessRepoRoot()}/packages/test-harness/src/config/init.lua`;
