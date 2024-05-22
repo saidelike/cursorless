@@ -23,6 +23,7 @@ jobs:
         with:
           node-version-file: .nvmrc
           cache: pnpm
+      - uses: lunarmodules/luacheck@v1
       - run: pnpm --color install
       - uses: pre-commit/action@v3.0.0
       - uses: pre-commit-ci/lite-action@v1.0.1

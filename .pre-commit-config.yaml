@@ -86,3 +86,4 @@ repos:
     hooks:
       - id: stylua
       - id: luacheck
+        exclude: ^data/playground/lua/
