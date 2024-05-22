@@ -261,60 +261,48 @@ function isFailingFixture(name: string, fixture: TestCaseFixtureLegacy) {
       ? fixture.command.action.name
       : fixture.command.action;
 
-  // "recorded/actions/insertEmptyLines/puffThis*" -> wrong fixture.finalState.selections and fixture.thatMark.contentRange
-  if (action === "insertEmptyLinesAround") {
-    return true;
-  }
-
-  // "recorded/actions/insertEmptyLines/floatThis*" ->    Error: nvim_buf_get_lines: Index out of bounds
-  //                                                -> or actual finalState.selections.anchor is -1 compared to expected
-  //                                                      actual finalState.thatMark.contentRange.start is -1 compared to expected
-  if (action === "insertEmptyLineAfter") {
-    return true;
-  }
-
-  // "recorded/actions/insertEmptyLines/dropThis*"  -> wrong fixture.finalState.selections and fixture.thatMark.contentRange
-  if (action === "insertEmptyLineBefore") {
-    return true;
-  }
-  // "recorded/actions/cloneToken*" and "recorded/itemTextual/cloneTwoItems" -> wrong fixture.finalState.selections and fixture.thatMark.contentRange
-  if (action === "insertCopyAfter") {
-    return true;
-  }
-
-  // "recorded/implicitExpansion/pour*" -> not supported for now
-  if (action === "editNewLineAfter") {
-    return true;
-  }
-
-  // "recorded/actions/{decrement,increment}File" -> are not supported atm
-  if (action === "decrement" || action === "increment") {
-    return true;
-  }
-
-  // ""recorded/actions/snippets/*" -> not supported for now
-  if (action === "insertSnippet" || action === "wrapWithSnippet") {
-    return true;
-  }
-
-  // "recorded/actions/{join,breakJustThis}*"" -> wrong fixture.finalState.selections and fixture.thatMark.contentRange
-  if (action === "breakLine" || action === "joinLines") {
-    return true;
-  }
-
-  // "recorded/actions/shuffleThis" is not supported atm
-  if (action === "randomizeTargets") {
-    return true;
-  }
-
-  // "recorded/actions/pasteBeforeToken" -> wrong fixture.finalState.documentContents/selections/thatMark
-  if (action === "pasteFromClipboard") {
-    return true;
-  }
-
-  // "recorded/actions/copySecondToken" -> wrong fixture.finalState.clipboard
-  if (action === "copyToClipboard") {
-    return true;
+  switch (action) {
+    // "recorded/actions/insertEmptyLines/puffThis*" -> wrong fixture.finalState.selections and fixture.thatMark.contentRange
+    case "insertEmptyLinesAround":
+      return true;
+    // "recorded/actions/insertEmptyLines/floatThis*" ->    Error: nvim_buf_get_lines: Index out of bounds
+    //                                                -> or actual finalState.selections.anchor is -1 compared to expected
+    //                                                      actual finalState.thatMark.contentRange.start is -1 compared to expected
+    case "insertEmptyLineAfter":
+      return true;
+    // "recorded/actions/insertEmptyLines/dropThis*"  -> wrong fixture.finalState.selections and fixture.thatMark.contentRange
+    case "insertEmptyLineBefore":
+      return true;
+    // "recorded/actions/cloneToken*" and "recorded/itemTextual/cloneTwoItems" -> wrong fixture.finalState.selections and fixture.thatMark.contentRange
+    case "insertCopyAfter":
+      return true;
+    // "recorded/implicitExpansion/pour*" -> not supported for now
+    case "editNewLineAfter":
+      return true;
+    // "recorded/actions/{decrement,increment}File" -> are not supported atm
+    case "decrement":
+      return true;
+    case "increment":
+      return true;
+    // "recorded/actions/snippets/*" -> not supported for now
+    case "insertSnippet":
+      return true;
+    case "wrapWithSnippet":
+      return true;
+    // "recorded/actions/insertEmptyLines/floatThis*" -> wrong fixture.finalState.selections and fixture.thatMark.contentRange
+    case "breakLine":
+      return true;
+    case "joinLines":
+      return true;
+    // "recorded/actions/shuffleThis" is not supported atm
+    case "randomizeTargets":
+      return true;
+    // "recorded/actions/pasteBeforeToken" -> wrong fixture.finalState.documentContents/selections/thatMark
+    case "pasteFromClipboard":
+      return true;
+    // "recorded/actions/copySecondToken" -> wrong fixture.finalState.clipboard
+    case "copyToClipboard":
+      return true;
   }
 
   // "recorded/lineEndings/*" -> fixture.finalState.documentContents contains \n instead of \r\n
@@ -331,6 +319,8 @@ function isFailingFixture(name: string, fixture: TestCaseFixtureLegacy) {
   if (failingFixtures.includes(name)) {
     return true;
   }
+
+  return false;
 }
 
 function unsupportedFixture(name: string, fixture: TestCaseFixtureLegacy) {
