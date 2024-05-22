@@ -5,18 +5,13 @@ import { Tail } from "tail";
 import { getCursorlessRepoRoot } from "@cursorless/common";
 import { getEnvironmentVariableStrict } from "@cursorless/common";
 
-// https://stackoverflow.com/questions/37764665/how-to-implement-sleep-function-in-typescript
-function delay(ms: number) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
 /**
  * Launches neovim, instructing it to run the test runner
  * specified in {@link extensionTestsPath}.
  * @param extensionTestsPath The path to test runner, passed to
  * `--extensionTestsPath`
  *
- * Current working directory:
+ * Current working & workspace directory:
  *  - Windows: D:\a\cursorless\cursorless
  *  - Linux: /home/runner/work/cursorless/cursorless
  *  - OS X: /Users/runner/work/cursorless/cursorless
@@ -203,4 +198,9 @@ export async function launchNeovimAndRunTests() {
   }
   console.log(`Returned code: ${code}`);
   process.exit(code);
+}
+
+// https://stackoverflow.com/questions/37764665/how-to-implement-sleep-function-in-typescript
+function delay(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
