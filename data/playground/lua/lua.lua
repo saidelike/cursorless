@@ -7,12 +7,12 @@
 
 -- Variables
 local a = 42
-local b, c = "Hello", "World"
+local b, c = 'Hello', 'World'
 
 -- Data Types
 local number = 3.14
 local boolean = true
-local string = "Lua is awesome!"
+local string = 'Lua is awesome!'
 local table = { 1, 2, 3 }
 local nilValue = nil
 
@@ -22,16 +22,16 @@ local y = 20
 
 -- if-then-else
 if x < y then
-  print("x is less than y")
+  print('x is less than y')
 elseif x > y then
-  print("x is greater than y")
+  print('x is greater than y')
 else
-  print("x is equal to y")
+  print('x is equal to y')
 end
 
 -- ternary conditional (short if-then-else)
 local max = x > y and x or y
-print("The maximum value is: " .. max)
+print('The maximum value is: ' .. max)
 
 -- Functions
 function add(x, b)
@@ -39,21 +39,21 @@ function add(x, b)
 end
 
 local sum = add(5, 7)
-print("Sum:", sum)
+print('Sum:', sum)
 
 -- Tables
 local person = {
-  name = "John",
+  name = 'John',
   age = 30,
-  hobbies = { "reading", "gaming", "programming" },
+  hobbies = { 'reading', 'gaming', 'programming' },
   address = {
-    street = "123 Main St",
-    city = "Example City",
+    street = '123 Main St',
+    city = 'Example City',
   },
 }
 
 -- String manipulation
-local concatString = "Hello " .. "World"
+local concatString = 'Hello ' .. 'World'
 
 -- Metatables and metatable operations
 local mt = {
@@ -81,18 +81,18 @@ local counter = makeCounter()
 -- Coroutines
 local co = coroutine.create(function()
   for i = 1, 3 do
-    print("Coroutine", i)
+    print('Coroutine', i)
     coroutine.yield()
   end
 end)
 
 -- Error handling
 local success, result = pcall(function()
-  error("This is an error")
+  error('This is an error')
 end)
 
 if not success then
-  print("Error:", result)
+  print('Error:', result)
 end
 
 -- Loop Constructs
@@ -100,31 +100,31 @@ end
 local i = 1
 i = 2
 while i <= 5 do
-  print("While loop iteration: " .. i)
+  print('While loop iteration: ' .. i)
   i = i + 1
 end
 
 -- repeat-until loop
 i = 1
 repeat
-  print("Repeat-Until loop iteration: " .. i)
+  print('Repeat-Until loop iteration: ' .. i)
   i = i + 1
 until i > 5
 
 -- for loop
 for j = 1, 5 do
-  print("For loop iteration: " .. j)
+  print('For loop iteration: ' .. j)
 end
 
 -- numeric for loop with step
 for k = 10, 1, -1 do
-  print("Numeric for loop with step: " .. k)
+  print('Numeric for loop with step: ' .. k)
 end
 
 -- for-in loop (iterating over a table)
-local fruits = { "apple", "banana", "cherry" }
+local fruits = { 'apple', 'banana', 'cherry' }
 for key, value in pairs(fruits) do
-  print("For-In loop: " .. key .. " = " .. value)
+  print('For-In loop: ' .. key .. ' = ' .. value)
 end
 
 -- ternary
