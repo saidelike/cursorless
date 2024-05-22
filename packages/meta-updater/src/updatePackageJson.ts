@@ -69,6 +69,10 @@ export async function updatePackageJson(
 
   const isCursorlessVscode = input.name === "@cursorless/cursorless-vscode";
 
+  const useGlobalDist =
+    input.name === "@cursorless/cursorless-neovim" ||
+    input.name == "@cursorless/test-harness";
+
   const extraFields = isCursorlessVscode
     ? getCursorlessVscodeFields(input)
     : {};
@@ -82,7 +86,14 @@ export async function updatePackageJson(
       name === "@cursorless/cursorless-neovim"
         ? undefined
         : "module",
-    scripts: await getScripts(input.scripts, name, packageDir, isRoot, isLib),
+    scripts: await getScripts(
+      input.scripts,
+      name,
+      packageDir,
+      isRoot,
+      isLib,
+      useGlobalDist,
+    ),
     ...exportFields,
     ...extraFields,
   };
@@ -106,6 +117,7 @@ async function getScripts(
   packageDir: string,
   isRoot: boolean,
   isLib: boolean,
+  useGlobalDist: boolean,
 ) {
   const scripts: PackageJson.Scripts = {
     ...(inputScripts ?? {}),
@@ -130,7 +142,10 @@ async function getScripts(
     return scripts;
   }
 
-  const cleanDirs = ["./out", "tsconfig.tsbuildinfo", "./dist", "./build"];
+  let cleanDirs = ["./out", "tsconfig.tsbuildinfo", "./dist", "./build"];
+  if (useGlobalDist) {
+    cleanDirs = [...cleanDirs, "../../dist"];
+  }
 
   const clean = `rm -rf ${cleanDirs.join(" ")}`;
 
