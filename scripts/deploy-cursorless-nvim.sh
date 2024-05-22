@@ -10,7 +10,7 @@ out_dir=dist/cursorless.nvim-remote
 
 # Delete the old files
 cd "$out_dir"
-git rm -r README.md assets/ lua/ vim/ node/
+git rm -r README.md lua/ vim/ node/
 cd -
 
 #
@@ -19,7 +19,6 @@ cd -
 
 # copy .lua, .vim dependencies, command-server and other static files
 cp -r cursorless.nvim/README.md "$out_dir/"
-cp -r cursorless.nvim/assets "$out_dir/"
 cp -r cursorless.nvim/lua "$out_dir/"
 cp -r cursorless.nvim/vim "$out_dir/"
 cp -r cursorless.nvim/node "$out_dir/"
