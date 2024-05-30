@@ -11,7 +11,7 @@ interface NewEditorOptions {
 // NOTE: When the nvim-data/swap folder gets too big, neovim will start
 // displaying a "press enter or type command to continue" message for every ":enew" command
 // so the workaround is to delete that folder.
-export async function openNewEditor(
+export async function openNewTestEditor(
   client: NeovimClient,
   neovimIDE: NeovimIDE,
   content: string,
