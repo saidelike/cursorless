@@ -23,7 +23,6 @@ export class NormalizedIDE extends PassthroughIDEBase {
     this.messages = isSilent ? fakeIde.messages : original.messages;
     this.configuration = fakeIde.configuration;
     this.globalState = fakeIde.globalState;
-
     this.initializeConfiguration();
   }
 
