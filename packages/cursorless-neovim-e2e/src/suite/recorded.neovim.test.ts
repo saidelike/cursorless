@@ -85,8 +85,8 @@ async function runTest(
     (fixture: TestCaseFixtureLegacy) => {
       return shouldRunTest(name, fixture);
     },
-    (content: string, languageId: string) => {
-      return openNewTestEditor(client, neovimIDE, content, {
+    async (content: string, languageId: string) => {
+      return await openNewTestEditor(client, neovimIDE, content, {
         languageId,
       });
     },
