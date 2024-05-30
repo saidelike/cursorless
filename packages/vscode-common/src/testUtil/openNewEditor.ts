@@ -1,4 +1,7 @@
-import { DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST } from "@cursorless/common";
+import {
+  DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
+  TextEditor,
+} from "@cursorless/common";
 import * as vscode from "vscode";
 import { getCursorlessApi, getParseTreeApi } from "../getExtensionApi";
 
@@ -40,13 +43,12 @@ export async function openNewEditor(
 export async function openNewTestEditor(
   content: string,
   { languageId = "plaintext", openBeside = false }: NewEditorOptions = {},
-) {
+): Promise<TextEditor> {
   const { fromVscodeEditor } = (await getCursorlessApi()).testHelpers!;
 
   const editor = await openNewEditor(content, { languageId, openBeside });
 
   // Override any user settings and make sure tests run with default tabs.
-  // XXX move into openNewEditor()
   editor.options = DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST;
 
   return fromVscodeEditor(editor);

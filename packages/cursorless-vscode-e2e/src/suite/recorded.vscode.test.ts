@@ -1,5 +1,6 @@
 import {
   CommandResponse,
+  EditableTextEditor,
   ExcludableSnapshotField,
   Fallback,
   HatStability,
@@ -76,8 +77,8 @@ async function runTest(suite: Mocha.Suite, file: string, spyIde: SpyIDE) {
     () => {
       return true;
     },
-    (content: string, languageId: string) => {
-      return openNewTestEditor(content, {
+    async (content: string, languageId: string) => {
+      return await openNewTestEditor(content, {
         languageId,
       });
     },
@@ -88,8 +89,11 @@ async function runRecordedTest(
   suite: Mocha.Suite,
   file: string,
   spyIde: SpyIDE,
-  shouldRunTest: any,
-  openNewTestEditor: any,
+  shouldRunTest: (fixture: TestCaseFixtureLegacy) => boolean,
+  openNewTestEditor: (
+    content: string,
+    languageId: string,
+  ) => Promise<TextEditor>,
 ) {
   const buffer = await fsp.readFile(file);
   const fixture = yaml.load(buffer.toString()) as TestCaseFixtureLegacy;
@@ -107,10 +111,10 @@ async function runRecordedTest(
   const { hatTokenMap, takeSnapshot, setStoredTarget, commandServerApi } =
     cursorlessApi.testHelpers!;
 
-  const editor = await openNewTestEditor(
+  const editor = (await openNewTestEditor(
     fixture.initialState.documentContents,
     fixture.languageId,
-  );
+  )) as EditableTextEditor;
 
   if (fixture.postEditorOpenSleepTimeMs != null) {
     await sleepWithBackoff(fixture.postEditorOpenSleepTimeMs);
