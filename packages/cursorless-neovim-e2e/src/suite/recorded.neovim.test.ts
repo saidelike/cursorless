@@ -111,11 +111,7 @@ async function runTest(
     spyIde.clipboard.writeText(fixture.initialState.clipboard);
   }
 
-  commandServerApi.setFocusedElementType(
-    fixture.focusedElementType === "other"
-      ? undefined
-      : fixture.focusedElementType ?? "textEditor",
-  );
+  commandServerApi.setFocusedElementType(fixture.focusedElementType);
 
   let returnValue: unknown;
   let fallback: Fallback | undefined;
