@@ -38,7 +38,6 @@ export interface TestHelpers {
     editor: TextEditor,
     ide: IDE,
     marks: SerializedMarks | undefined,
-    forceRealClipboard: boolean,
   ): Promise<TestCaseSnapshot>;
 
   runIntegrationTests(): Promise<void>;

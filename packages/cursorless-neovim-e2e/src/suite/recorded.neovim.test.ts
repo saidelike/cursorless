@@ -43,7 +43,7 @@ suite("recorded test cases", async function () {
   const { getSpy, getNeovimIDE } = endToEndTestSetup(this);
 
   suiteSetup(async () => {
-    const { ide } = (await getCursorlessApi()).testHelpers!;
+    // const { ide } = (await getCursorlessApi()).testHelpers!;
   });
 
   const tests = getRecordedTestPaths();
@@ -186,7 +186,6 @@ async function runTest(
     spyIde.activeTextEditor!,
     spyIde,
     marks,
-    false,
   );
 
   const rawSpyIdeValues = spyIde.getSpyValues(fixture.ide?.flashes != null);
