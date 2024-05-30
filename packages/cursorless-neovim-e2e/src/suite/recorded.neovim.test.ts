@@ -4,16 +4,25 @@ import {
   Fallback,
   Position,
   PositionPlainObject,
+  ReadOnlyHatMap,
   Selection,
   SelectionPlainObject,
+  SerializedMarks,
   SpyIDE,
   TestCaseFixtureLegacy,
+  TextEditor,
+  TokenHat,
   asyncSafety,
   clientSupportsFallback,
+  extractTargetedMarks,
   getRecordedTestPaths,
+  marksToPlainObject,
   omitByDeep,
+  plainObjectToRange,
+  rangeToPlainObject,
   serializeTestFixture,
   shouldUpdateFixtures,
+  splitKey,
   spyIDERecordedValuesToPlainObject,
   storedTargetKeys,
 } from "@cursorless/common";
@@ -82,7 +91,7 @@ async function runTest(
   const usePrePhraseSnapshot = false;
 
   const cursorlessApi = await getCursorlessApi();
-  const { takeSnapshot, setStoredTarget, commandServerApi } =
+  const { hatTokenMap, takeSnapshot, setStoredTarget, commandServerApi } =
     cursorlessApi.testHelpers!;
 
   const editor = await openNewEditor(
@@ -112,6 +121,16 @@ async function runTest(
   }
 
   commandServerApi.setFocusedElementType(fixture.focusedElementType);
+
+  // Ensure that the expected hats are present
+  await hatTokenMap.allocateHats(
+    getTokenHats(fixture.initialState.marks, spyIde.activeTextEditor!),
+  );
+
+  const readableHatMap = await hatTokenMap.getReadableMap(usePrePhraseSnapshot);
+
+  // Assert that recorded decorations are present
+  checkMarks(fixture.initialState.marks, readableHatMap);
 
   let returnValue: unknown;
   let fallback: Fallback | undefined;
@@ -160,8 +179,15 @@ async function runTest(
     await sleepWithBackoff(fixture.postCommandSleepTimeMs);
   }
 
-  // We don't support decorated symbol marks (hats) yet
-  const marks = undefined;
+  const marks =
+    fixture.finalState?.marks == null
+      ? undefined
+      : marksToPlainObject(
+          extractTargetedMarks(
+            Object.keys(fixture.finalState.marks),
+            readableHatMap,
+          ),
+        );
 
   if (fixture.finalState?.clipboard == null) {
     excludeFields.push("clipboard");
@@ -232,6 +258,53 @@ async function runTest(
       "Unexpected ide captured values",
     );
   }
+}
+
+function checkMarks(
+  marks: SerializedMarks | undefined,
+  hatTokenMap: ReadOnlyHatMap,
+) {
+  if (marks == null) {
+    return;
+  }
+
+  Object.entries(marks).forEach(([key, token]) => {
+    const { hatStyle, character } = splitKey(key);
+    const currentToken = hatTokenMap.getToken(hatStyle, character);
+    assert(currentToken != null, `Mark "${hatStyle} ${character}" not found`);
+    assert.deepStrictEqual(rangeToPlainObject(currentToken.range), token);
+  });
+}
+
+function getTokenHats(
+  marks: SerializedMarks | undefined,
+  editor: TextEditor,
+): TokenHat[] {
+  if (marks == null) {
+    return [];
+  }
+
+  return Object.entries(marks).map(([key, token]) => {
+    const { hatStyle, character } = splitKey(key);
+    const range = plainObjectToRange(token);
+
+    return {
+      hatStyle,
+      grapheme: character,
+      token: {
+        editor,
+        range,
+        offsets: {
+          start: editor.document.offsetAt(range.start),
+          end: editor.document.offsetAt(range.end),
+        },
+        text: editor.document.getText(range),
+      },
+
+      // NB: We don't care about the hat range for this test
+      hatRange: range,
+    };
+  });
 }
 
 const failingFixtures = [
