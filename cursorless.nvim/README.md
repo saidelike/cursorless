@@ -7,11 +7,14 @@
     - [Manual installation](#manual-installation)
   - [Configuration](#configuration)
     - [neovim configuration](#neovim-configuration)
+      - [Keyboard shortcut](#keyboard-shortcut)
+      - [Absolute numbers](#absolute-numbers)
     - [Talon configuration](#talon-configuration)
   - [Frequently asked questions](#frequently-asked-questions)
     - [nvim does not support Lazy?](#nvim-does-not-support-lazy)
     - [nvim does not find the `neovim` globally installed package?](#nvim-does-not-find-the-neovim-globally-installed-package)
   - [Contributors](#contributors)
+    - [Sending pull requests](#sending-pull-requests)
 
 <!-- vim-markdown-toc -->
 
@@ -25,8 +28,10 @@ Neovim plugin to support Cursorless
 - Talon voice: https://talonvoice.com/
 - neovim-talon: https://github.com/hands-free-vim/neovim-talon
 - node/npm: https://nodejs.org/en
-- neovim node package: https://github.com/neovim/node-client (globally installed with `npm`)
-- talon.nvim: https://github.com/hands-free-vim/talon.nvim (optional but recommended)
+- neovim node package: https://github.com/neovim/node-client (>= 5.1.0 installed globally)
+- talon.nvim: https://github.com/hands-free-vim/talon.nvim (likely required, unless standalone neovim
+  GUI (nvim-qt.exe, neovide, etc)
+
 
 ## Installation
 
@@ -60,6 +65,29 @@ If you aren't using a plugin manager that automatically calls setup for you (e.g
 require("cursorless").setup()
 ```
 
+#### Keyboard shortcut
+
+By default the keyboard shortcut used to communicate with cursorless is `<C-S-f12>`, but this not work for
+everybody and is configurable. You can change it by passing a different value in the configuration options passed to
+`setup()`:
+
+```lua
+require("cursorless").setup({ shortcut = `<C-Q>`})
+```
+
+*IMPORTANT*: If you change this shortcut, be sure to set the corresponding neovim-talon setting. This can be done by
+having a `.talon` file somewhere in your talon user directory that contains the following:
+
+```talon
+settings():
+    user.neovim_command_server_shortcut = "ctrl-q"
+```
+
+#### Absolute numbers
+
+You MUST currently use absolute row numbers in order to target rows using cursorless. The `talon.nvim` plugin will
+configure this automatically, but your own config may be overriding it. Be sure to disable relative numbers.
+
 ### Talon configuration
 
 Add a `.talon` file like the following anywhere in your Talon user directory (e.g. named `cursorless_neovim.talon`):
@@ -89,3 +117,9 @@ require('lazy').setup({
   'vim-scripts/BufOnly.vim'
 })
 ```
+
+### Sending pull requests
+
+This repo is part of the larger cursorless monorepo, and is currently part of a pending PR to that monorepo only. If
+you'd like to send a PR to `cursorless.nvim`, please send a PR against the `nvim-talon` branch of this
+[repo](https://github.com/saidelike/cursorless).
