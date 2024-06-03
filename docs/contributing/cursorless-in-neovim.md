@@ -1,4 +1,8 @@
-# Initial setup
+# Cursorless in Neovim
+
+This document describes how to get set up to work on the Cursorless neovim plugin.
+
+## Initial setup
 
 1. Install all the common prerequisites. See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
@@ -33,7 +37,7 @@ vim.o.runtimepath = vim.o.runtimepath .. "," .. "C:\\path\\to\\cursorless\\dist\
 
 On Windows, open the Control Panel, navigate to `User Accounts > User Accounts`. Click on `Change my environment variables`. In the `User variables`, e.g. add the entry `C:\Program Files\Neovim\bin` to your `Path`.
 
-# Running / testing extension locally
+## Running / testing extension locally
 
 In order to test out your local version of the extension or to run unit tests locally, you need to run the extension in debug mode. To do so you need to run the `workbench.action.debug.selectandstart` command in VSCode and then select either "Run neovim extension" or "Run neovim extension tests".
 
