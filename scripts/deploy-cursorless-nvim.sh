@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # This script is used to push to the cursorless.nvim github production repo
 set -euo pipefail
 
