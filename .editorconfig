@@ -25,13 +25,6 @@ insert_final_newline = false
 # data/fixtures/recorded/languages/ruby/changeCondition.yml
 trim_trailing_whitespace = false
 
-[*.lua]
-column_width = 100
-line_endings = "Unix"
-indent_type = "Spaces"
-indent_width = 2
-quote_style = "AutoPreferSingle"
-
 [Makefile]
 indent_style = tab
 
