@@ -1,10 +1,10 @@
 import type { SnippetMap } from "@cursorless/common";
 //import * as vscode from "vscode";
-import { TestHelpers } from "./TestHelpers";
 import { getNeovimRegistry } from "@cursorless/neovim-registry";
+import { NeovimTestHelpers } from "./TestHelpers";
 
 export interface CursorlessApi {
-  testHelpers: TestHelpers | undefined;
+  testHelpers: NeovimTestHelpers | undefined;
 
   experimental: {
     registerThirdPartySnippets: (

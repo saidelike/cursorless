@@ -20,7 +20,7 @@ import {
 import {
   NeovimFileSystem,
   NeovimIDE,
-  TestHelpers,
+  NeovimTestHelpers,
 } from "@cursorless/neovim-common";
 
 export function constructTestHelpers(
@@ -33,7 +33,7 @@ export function constructTestHelpers(
   scopeProvider: ScopeProvider,
   injectIde: (ide: IDE) => void,
   runIntegrationTests: () => Promise<void>,
-): TestHelpers | undefined {
+): NeovimTestHelpers | undefined {
   return {
     commandServerApi: commandServerApi!,
     ide: normalizedIde,

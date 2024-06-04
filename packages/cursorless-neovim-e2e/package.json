@@ -22,7 +22,8 @@
     "@types/chai": "^4.3.14",
     "@types/js-yaml": "^4.0.9",
     "@types/lodash": "4.17.0",
-    "@types/sinon": "^17.0.3"
+    "@types/sinon": "^17.0.3",
+    "neovim": "5.1.0"
   },
   "dependencies": {
     "@cursorless/common": "workspace:*",
