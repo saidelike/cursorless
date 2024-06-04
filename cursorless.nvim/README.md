@@ -30,9 +30,11 @@ Neovim plugin to support Cursorless
 
 ## Installation
 
+### 1. Install Cursorless neovim plugin
+
 Ideally, you want to use a neovim plugin manager like [lazy.nvim](https://github.com/folke/lazy.nvim).
 
-### Lazy installation
+#### Option A: Lazy installation
 
 After the typical [lazy setup](https://github.com/folke/lazy.nvim?tab=readme-ov-file#-installation), you'll have to add the `cursorless.nvim` plugin to your `init.lua`.
 
@@ -42,7 +44,7 @@ require('lazy').setup({
 })
 ```
 
-### Manual installation
+#### Option B: Manual installation
 
 This method is not recommended but you can try directly cloning the plugin into your nvim data folder:
 
@@ -50,9 +52,7 @@ This method is not recommended but you can try directly cloning the plugin into 
 git clone https://github.com/hands-free-vim/cursorless.nvim
 ```
 
-## Configuration
-
-### neovim configuration
+### 2. Tell neovim to run the plugin
 
 If you aren't using a plugin manager that automatically calls setup for you (e.g. it is needed for lazy), you will need this somewhere in your neovim config, e.g. in [init.lua](https://neovim.io/doc/user/lua-guide.html#lua-guide-config):
 
@@ -60,7 +60,7 @@ If you aren't using a plugin manager that automatically calls setup for you (e.g
 require("cursorless").setup()
 ```
 
-### Talon configuration
+### 3. Activate Cursorless commands in Talon
 
 Add a `.talon` file like the following anywhere in your Talon user directory (e.g. named `cursorless_neovim.talon`):
 
