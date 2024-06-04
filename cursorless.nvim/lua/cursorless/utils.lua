@@ -1,13 +1,13 @@
 local M = {}
 
--- :lua print(require('cursorless.utils').is_win())
-function M.is_win()
+-- :lua print(require('cursorless.utils').is_platform_windows())
+function M.is_platform_windows()
   return package.config:sub(1, 1) == '\\'
 end
 
 -- :lua print(require('cursorless.utils').get_path_separator())
 function M.get_path_separator()
-  if require('cursorless.utils').is_win() then
+  if require('cursorless.utils').is_platform_windows() then
     return '\\'
   end
   return '/'
@@ -26,9 +26,9 @@ function M.cursorless_nvim_path()
   -- skip as the file name is prefixed by "@"
   str = str:sub(2)
   -- print(('source_file2=%s'):format(str))
-  if require('cursorless.utils').is_win() then
+  if require('cursorless.utils').is_platform_windows() then
     str = str:gsub('/', '\\')
-    -- print('is_win')
+    -- print('is_platform_windows')
   end
   -- print(('source_file3=%s'):format(str))
   -- remove where our current file is located to get talon.nvim base path

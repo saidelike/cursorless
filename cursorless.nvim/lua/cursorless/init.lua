@@ -1,7 +1,7 @@
 local function register_functions()
   local path = require('cursorless.utils').cursorless_nvim_path()
   -- revert to using forward slashes as works when passed to remote#host#RegisterPlugin()
-  if require('cursorless.utils').is_win() then
+  if require('cursorless.utils').is_platform_windows() then
     path = path:gsub('\\', '/')
   end
   vim.api.nvim_call_function('RegisterFunctions', { path })
@@ -13,15 +13,13 @@ end
 local function load_extensions()
   vim.api.nvim_call_function('CursorlessLoadExtension', {})
 
-  if os.getenv('CURSORLESS_MODE') ~= 'test' then
-    vim.api.nvim_call_function('CommandServerLoadExtension', {})
-  end
-
   if os.getenv('CURSORLESS_MODE') == 'test' then
     -- make sure cursorless is loaded before starting the tests
     -- see https://neovim.io/doc/user/various.html#%3Asleep
     vim.cmd([[sleep 1]])
     vim.api.nvim_call_function('TestHarnessRun', {})
+  else
+    vim.api.nvim_call_function('CommandServerLoadExtension', {})
   end
 end
 
