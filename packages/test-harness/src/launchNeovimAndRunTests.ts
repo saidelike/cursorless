@@ -1,6 +1,6 @@
 import * as cp from "child_process";
 import process from "node:process";
-import { readdirSync, mkdirSync, copyFile } from "fs";
+import { readdirSync, copyFile } from "fs";
 import { Tail } from "tail";
 import { getCursorlessRepoRoot } from "@cursorless/common";
 import { getEnvironmentVariableStrict } from "@cursorless/common";
@@ -19,11 +19,6 @@ import { getEnvironmentVariableStrict } from "@cursorless/common";
 export async function launchNeovimAndRunTests() {
   let code = 1; // failure
   try {
-    const crashDir = getEnvironmentVariableStrict("VSCODE_CRASH_DIR");
-    const logsDir = getEnvironmentVariableStrict("VSCODE_LOGS_DIR");
-    const useLegacyVscode =
-      getEnvironmentVariableStrict("APP_VERSION") === "legacy";
-
     const cli = getEnvironmentVariableStrict("NEOVIM_PATH");
 
     let nvimFolder = "";
@@ -41,33 +36,15 @@ export async function launchNeovimAndRunTests() {
 
     console.log(`cli: ${cli}`);
 
-    mkdirSync(`${nvimFolder}/lua`, { recursive: true });
-
-    copyFile(initLuaFile, `${nvimFolder}/lua/init.lua`, (err: any) => {
+    copyFile(initLuaFile, `${nvimFolder}/init.lua`, (err: any) => {
       if (err) {
         console.error(err);
       }
     });
     console.log("init.lua copying done");
 
-    copyFile(
-      `${getCursorlessRepoRoot()}/packages/test-harness/src/config/init.vim`,
-      `${nvimFolder}/init.vim`,
-      (err: any) => {
-        if (err) {
-          console.error(err);
-        }
-      },
-    );
-    console.log("init.vim copying done");
-
     console.log("listing nvim/:");
     readdirSync(nvimFolder).forEach((file) => {
-      console.log(`\t${file}`);
-    });
-
-    console.log("listing nvim/lua:");
-    readdirSync(`${nvimFolder}/lua/`).forEach((file) => {
       console.log(`\t${file}`);
     });
 
