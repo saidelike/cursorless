@@ -1,9 +1,11 @@
+import {
+  getCursorlessRepoRoot,
+  getEnvironmentVariableStrict,
+} from "@cursorless/common";
 import * as cp from "child_process";
+import { copyFile, mkdirSync, readdirSync } from "fs";
 import process from "node:process";
-import { readdirSync, copyFile } from "fs";
 import { Tail } from "tail";
-import { getCursorlessRepoRoot } from "@cursorless/common";
-import { getEnvironmentVariableStrict } from "@cursorless/common";
 
 /**
  * Launches neovim, instructing it to run the test runner
@@ -35,6 +37,8 @@ export async function launchNeovimAndRunTests() {
     }
 
     console.log(`cli: ${cli}`);
+
+    mkdirSync(nvimFolder, { recursive: true });
 
     copyFile(initLuaFile, `${nvimFolder}/init.lua`, (err: any) => {
       if (err) {
