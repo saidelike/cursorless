@@ -6,16 +6,13 @@ This document describes how to get set up to work on the Cursorless neovim plugi
 
 ### 1. Follow the initial contributor setup guide
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md). In particular:
-
-- Build the VSCode Cursorless extension
-- Run the VSCode Cursorless extension tests
+Follow the steps in [CONTRIBUTING.md](./CONTRIBUTING.md#initial-setup).
 
 ### 2. Get production Cursorless neovim working
 
 Follow the installation steps in [cursorless.nvim](https://github.com/hands-free-vim/cursorless.nvim/tree/main#prerequisites).
 
-Confirm that production cursorless.nvim is working in neovim.
+Confirm that production cursorless.nvim is working in neovim, eg say `"take first paint"` in a nonempty document.
 
 ### 3. Switch to local debug version of cursorless.nvim
 
