@@ -33,6 +33,10 @@ require('lazy').setup({
 vim.o.runtimepath = vim.o.runtimepath .. "," .. "C:\\path\\to\\cursorless\\dist\\cursorless.nvim"
 ```
 
+Note that the above path should point to the `dist/cursorless.nvim` directory in your cloned cursorless repository. It may not already exist, but will be created automatically when you first launch the extension in debug mode.
+
+Note also that the above line must appear before the `require('cursorless').setup()` line in your neovim configuration.
+
 ### 4. Add nvim executable path to your PATH
 
 On Mac and Linux, this should be done automatically.

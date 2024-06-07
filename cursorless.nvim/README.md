@@ -21,12 +21,13 @@ Neovim plugin to support Cursorless
 
 ## Prerequisites
 
-- neovim: https://neovim.io/
-- Talon voice: https://talonvoice.com/
-- neovim-talon: https://github.com/hands-free-vim/neovim-talon
-- node/npm: https://nodejs.org/en
-- neovim node package: https://github.com/neovim/node-client (globally installed with `npm`)
-- talon.nvim: https://github.com/hands-free-vim/talon.nvim (optional but recommended)
+- [neovim](https://neovim.io/.) Tested with neovim version `v0.10.0` and above, but it may work with earlier versions.
+- [Talon voice](https://talonvoice.com/)
+- [neovim-talon](https://github.com/hands-free-vim/neovim-talon)
+- [node/npm](https://nodejs.org/en)
+- [neovim node package](https://github.com/neovim/node-client) (>= 5.1.0 installed globally)
+- [talon.nvim](https://github.com/hands-free-vim/talon.nvim) (likely required, unless standalone neovim
+  GUI (nvim-qt.exe, neovide, etc)
 
 ## Installation
 
