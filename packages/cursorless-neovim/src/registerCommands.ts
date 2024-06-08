@@ -75,6 +75,11 @@ export async function registerCommands(
     ["cursorless.resumeRecording"]: dummyCommandHandler,
     ["cursorless.takeSnapshot"]: dummyCommandHandler,
 
+    // Scope test recorder commands
+    ["cursorless.recordScopeTests.showUnimplementedFacets"]:
+      dummyCommandHandler,
+    ["cursorless.recordScopeTests.saveActiveDocument"]: dummyCommandHandler,
+
     // Other commands
     ["cursorless.showQuickPick"]: dummyCommandHandler,
     ["cursorless.showDocumentation"]: dummyCommandHandler,
