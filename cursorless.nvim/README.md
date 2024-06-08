@@ -77,7 +77,7 @@ everybody and is configurable. You can change it by passing a different value in
 require("cursorless").setup({ shortcut = `<C-Q>`})
 ```
 
-*IMPORTANT*: If you change this shortcut, be sure to set the corresponding neovim-talon setting. This can be done by
+_IMPORTANT_: If you change this shortcut, be sure to set the corresponding neovim-talon setting. This can be done by
 having a `.talon` file somewhere in your talon user directory that contains the following:
 
 ```talon
