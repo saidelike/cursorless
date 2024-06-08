@@ -43,6 +43,19 @@ On Mac and Linux, this should be done automatically.
 
 On Windows, open the Control Panel, navigate to `User Accounts > User Accounts`. Click on `Change my environment variables`. In the `User variables`, e.g. add the entry `C:\Program Files\Neovim\bin` to your `Path`.
 
+### 5. (Windows only) Create symlinks for the built plugin
+
+This step is only required on Windows if you don't run VSCode with Administrator privileges.
+
+Open a `cmd.exe` with Administrator privileges and create that symbolic link between the source folder and the built folder:
+
+```bat
+mkdir C:\path\to\cursorless\dist\cursorless.nvim\node
+mklink /D C:\path\to\cursorless\dist\cursorless.nvim\node\cursorless-neovim C:\path\to\cursorless\packages\cursorless-neovim
+```
+
+Note that the `C:\path\to\cursorless` path above should match your cloned cursorless repository.
+
 ## Running / testing extension locally
 
 You will need to add the [BufOnly.vim](https://github.com/vim-scripts/BufOnly.vim) neovim plugin if you want to be able to run the tests locally. For instance, with lazy:
@@ -62,3 +75,18 @@ NOTE: This will spawn a standalone nvim instance that is independent of VSCode. 
 ## Sending pull requests
 
 The [cursorless.nvim](https://github.com/hands-free-vim/cursorless.nvim) repo is part of the larger cursorless monorepo, and is currently part of a pending PR to that monorepo only. If you'd like to send a PR to `cursorless.nvim`, please send a PR against the `nvim-talon` branch of this [repo](https://github.com/saidelike/cursorless).
+
+## Frequently asked questions
+
+### init.lua: module 'cursorless' not found
+
+The first time you build Cursorless for neovim for debugging, you might encounter this error in `nvim` when it starts:
+
+```
+Error detected while processing C:\Users\User\AppData\Local\nvim\init.lua:
+E5113: Error while calling lua chunk: C:\Users\User\AppData\Local\nvim\init.lua:50: module 'cursorless' not found:
+```
+
+This is expected because `nvim` is started before Cursorless is built and the `dist/cursorless.nvim` folder does not exist yet. Consequently, close `nvim` and restart your debugging session for it to work.
+
+If it still does not work, check that your `vim.o.runtimepath` path point to the right folder as described in the installation instructions above.
