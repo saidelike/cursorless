@@ -8,7 +8,7 @@
     {
       "name": "Run neovim extension",
       "request": "attach",
-      "processName": "node.exe",
+      "continueOnAttach": true,
       "skipFiles": ["<node_internals>/**"],
       "preLaunchTask": "Build neovim extension",
       "type": "node"
@@ -16,7 +16,7 @@
     {
       "name": "Neovim extension tests",
       "request": "attach",
-      "processName": "node.exe",
+      "continueOnAttach": true,
       "skipFiles": ["<node_internals>/**"],
       "preLaunchTask": "Build neovim extension tests",
       "type": "node"

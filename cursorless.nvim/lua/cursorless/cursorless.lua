@@ -8,7 +8,7 @@ local M = {}
 --  { [1] = 28, [2] = 74 }
 function M.window_get_visible_lines()
   -- print('window_get_visible_lines()')
-  return { vim.fn.line('w0'), vim.fn.line('w$') }
+  return { vim.fn.line("w0"), vim.fn.line("w$") }
 end
 
 -- https://www.reddit.com/r/neovim/comments/p4u4zy/how_to_pass_visual_selection_range_to_lua_function/
@@ -39,7 +39,7 @@ function M.buffer_get_selection()
 
   local cursor = vim.api.nvim_win_get_cursor(0)
   local cline, ccol = cursor[1], cursor[2]
-  local vline, vcol = vim.fn.line('v'), vim.fn.col('v')
+  local vline, vcol = vim.fn.line("v"), vim.fn.col("v")
   -- print(('cline=%d, ccol=%d, vline=%d, vcol=%d'):format(cline, ccol, vcol, vcol))
 
   local sline, scol
@@ -70,7 +70,7 @@ function M.buffer_get_selection()
     reverse = false
   end
 
-  if mode == 'V' or mode == 'CTRL-V' or mode == '\22' then
+  if mode == "V" or mode == "CTRL-V" or mode == "\22" then
     scol = 1
     ecol = nil
   end
@@ -96,7 +96,8 @@ end
 -- { "hello", "air" }
 function M.buffer_get_selection_text()
   -- print('buffer_get_selection_text()')
-  local sline, scol, eline, ecol, _ = unpack(require('talon.cursorless').buffer_get_selection())
+  local sline, scol, eline, ecol, _ =
+    unpack(require("talon.cursorless").buffer_get_selection())
 
   local lines = vim.api.nvim_buf_get_lines(0, sline - 1, eline, 0)
   if #lines == 0 then

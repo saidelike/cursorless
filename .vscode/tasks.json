@@ -51,6 +51,13 @@
           "(New-Object -ComObject WScript.Shell).Run(\"\"\"nvim\"\"\", 1, $false)"
         ]
       },
+      "osx": {
+        "command": "osascript",
+        "args": [
+          "-e",
+          "tell app \"Terminal\" to do script \"${workspaceFolder}/packages/cursorless-neovim/scripts/debug-neovim.sh ${workspaceFolder} development\""
+        ]
+      },
       "group": "build",
       "options": {
         "env": {
@@ -69,6 +76,13 @@
         "command": "powershell",
         "args": [
           "(New-Object -ComObject WScript.Shell).Run(\"\"\"nvim\"\"\", 1, $false)"
+        ]
+      },
+      "osx": {
+        "command": "osascript",
+        "args": [
+          "-e",
+          "tell app \"Terminal\" to do script \"${workspaceFolder}/packages/cursorless-neovim/scripts/debug-neovim.sh ${workspaceFolder} test\""
         ]
       },
       "group": "build",
