@@ -3,14 +3,8 @@
 - [cursorless.nvim](#cursorlessnvim)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
-    - [Lazy installation](#lazy-installation)
-    - [Manual installation](#manual-installation)
   - [Configuration](#configuration)
-    - [neovim configuration](#neovim-configuration)
-    - [Talon configuration](#talon-configuration)
   - [Frequently asked questions](#frequently-asked-questions)
-    - [nvim does not support Lazy?](#nvim-does-not-support-lazy)
-    - [nvim does not find the `neovim` globally installed package?](#nvim-does-not-find-the-neovim-globally-installed-package)
   - [Contributors](#contributors)
 
 <!-- vim-markdown-toc -->
@@ -71,6 +65,31 @@ app: neovim
 tag(): user.cursorless
 ```
 
+## Configuration
+
+### Keyboard shortcut
+
+By default the keyboard shortcut used to communicate with cursorless is `<C-S-f12>`, but this might not work for
+everybody and is configurable. You can change it by passing a different value in the configuration options passed to
+`setup()`:
+
+```lua
+require("cursorless").setup({ shortcut = `<C-Q>`})
+```
+
+*IMPORTANT*: If you change this shortcut, be sure to set the corresponding neovim-talon setting. This can be done by
+having a `.talon` file somewhere in your talon user directory that contains the following:
+
+```talon
+settings():
+    user.neovim_command_server_shortcut = "ctrl-q"
+```
+
+### Absolute row numbers
+
+You MUST currently use absolute row numbers in order to target rows using cursorless. The `talon.nvim` plugin will
+configure this automatically, but your own config may be overriding it. Be sure to disable relative numbers.
+
 ## Frequently asked questions
 
 ### nvim does not support Lazy?
@@ -83,10 +102,4 @@ If you are on Linux, avoid using the snap package for `npm` as it may not be abl
 
 ## Contributors
 
-You will need to add the `vim-scripts/BufOnly.vim` neovim plugin if you want to be able to run the tests. For instance, with lazy:
-
-```lua
-require('lazy').setup({
-  'vim-scripts/BufOnly.vim'
-})
-```
+Welcome! So glad you've decided to help make Cursorless in Neovim better. You'll want to start by getting [set up](https://github.com/saidelike/cursorless/blob/nvim-talon/docs/contributing/cursorless-in-neovim.md). You may also find the [Neovim API docs](https://neovim.io/doc/user/api.html) helpful to learn about Neovim extension development.
