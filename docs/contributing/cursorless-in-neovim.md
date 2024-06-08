@@ -43,15 +43,16 @@ On Mac and Linux, this should be done automatically.
 
 On Windows, open the Control Panel, navigate to `User Accounts > User Accounts`. Click on `Change my environment variables`. In the `User variables`, e.g. add the entry `C:\Program Files\Neovim\bin` to your `Path`.
 
-### 5. (Windows only) Create symlinks for the built plugin
+### 5. (Windows only) Create symlinks for the built plugins
 
 This step is only required on Windows if you don't run VSCode with Administrator privileges.
 
-Open a `cmd.exe` with Administrator privileges and create that symbolic link between the source folder and the built folder:
+Open a `cmd.exe` with Administrator privileges and create the symbolic links between the source folders and the built folder:
 
 ```bat
 mkdir C:\path\to\cursorless\dist\cursorless.nvim\node
 mklink /D C:\path\to\cursorless\dist\cursorless.nvim\node\cursorless-neovim C:\path\to\cursorless\packages\cursorless-neovim
+mklink /D C:\path\to\cursorless\dist\cursorless.nvim\node\test-harness C:\path\to\cursorless\packages\test-harness
 ```
 
 Note that the `C:\path\to\cursorless` path above should match your cloned cursorless repository.
