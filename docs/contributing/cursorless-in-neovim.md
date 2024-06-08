@@ -45,8 +45,20 @@ On Windows, open the Control Panel, navigate to `User Accounts > User Accounts`.
 
 ## Running / testing extension locally
 
+You will need to add the [BufOnly.vim](https://github.com/vim-scripts/BufOnly.vim) neovim plugin if you want to be able to run the tests locally. For instance, with lazy:
+
+```lua
+require('lazy').setup({
+  'vim-scripts/BufOnly.vim'
+})
+```
+
 In order to test out your local version of the extension or to run unit tests locally, you need to run the extension in debug mode. To do so you need to run the `workbench.action.debug.selectandstart` command in VSCode and then select either "Run neovim extension" or "Run neovim extension tests".
 
 The debug logs are written in `C:\path\to\cursorless\packages\cursorless-neovim\out\nvim_node.log`.
 
 NOTE: This will spawn a standalone nvim instance that is independent of VSCode. Consequently after you're done debugging, you need to close nvim.
+
+## Sending pull requests
+
+The [cursorless.nvim](https://github.com/hands-free-vim/cursorless.nvim) repo is part of the larger cursorless monorepo, and is currently part of a pending PR to that monorepo only. If you'd like to send a PR to `cursorless.nvim`, please send a PR against the `nvim-talon` branch of this [repo](https://github.com/saidelike/cursorless).
