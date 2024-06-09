@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
-set -euo pipefail
+# We don't set -u so we can safely test for the presence of the "CI" environment variable or not
+# Indeed, we can't just "env | grep CI" as it contains runNeovimTestsCI.ts, etc. which would give a false positive
+# https://stackoverflow.com/questions/64182595/how-to-determine-if-ci-script-is-running-on-github-server
+# https://gist.github.com/mohanpedala/1e2ff5661761d3abd0385e8223e16425#set--u
+set -eo pipefail
 
 in_dir=../../cursorless.nvim
 out_dir=../../dist/cursorless.nvim
 
-# https://stackoverflow.com/questions/64182595/how-to-determine-if-ci-script-is-running-on-github-server
-(env | grep CI 1>/dev/null) && is_ci=true || is_ci=false
-
-if [[ "$is_ci" == "true" ]]; then
+if [[ ! -z "$CI" ]]; then
   # If running in CI, only copy the necessary files for testing
 
   mkdir -p "$out_dir/node/test-harness/out"
