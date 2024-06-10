@@ -30,7 +30,7 @@ require('lazy').setup({
 })
 
 -- debug cursorless.nvim
-vim.o.runtimepath = vim.o.runtimepath .. "," .. "C:\\path\\to\\cursorless\\dist\\cursorless.nvim"
+vim.opt.runtimepath:append("C:\\path\\to\\cursorless\\dist\\cursorless.nvim")
 ```
 
 Note that the above path should point to the `dist/cursorless.nvim` directory in your cloned cursorless repository. It may not already exist, but will be created automatically when you first launch the extension in debug mode.
