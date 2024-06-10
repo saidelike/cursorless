@@ -90,4 +90,4 @@ E5113: Error while calling lua chunk: C:\Users\User\AppData\Local\nvim\init.lua:
 
 This is expected because `nvim` is started before Cursorless is built and the `dist/cursorless.nvim` folder does not exist yet. Consequently, close `nvim` and restart your debugging session for it to work.
 
-If it still does not work, check that your `vim.o.runtimepath` path point to the right folder as described in the installation instructions above.
+If it still does not work, check that your `vim.opt.runtimepath` path point to the right folder as described in the installation instructions above.
