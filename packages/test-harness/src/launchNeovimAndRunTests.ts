@@ -112,15 +112,14 @@ export async function launchNeovimAndRunTests() {
     let done = false;
     let tailTest;
     try {
-      tailTest = new Tail(`${logName}.notexist`, {
-        // separator: "\n",
+      tailTest = new Tail(logName, {
         fromBeginning: true,
       });
     } catch (error) {
-      console.log(error);
       console.log(
-        "A missing log file at nvim startup is typically the sign of an invalid nvim config file. ",
+        "Warning: A missing log file at nvim startup is typically the result of an invalid nvim config file",
       );
+      console.log(error);
       code = 3;
       process.exit(code);
     }
