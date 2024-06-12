@@ -110,10 +110,20 @@ export async function launchNeovimAndRunTests() {
     // read log file live and print to console
     // https://stackoverflow.com/questions/26788504/using-node-js-to-read-a-live-file-line-by-line
     let done = false;
-    const tailTest = new Tail(logName, {
-      // separator: "\n",
-      fromBeginning: true,
-    });
+    let tailTest;
+    try {
+      tailTest = new Tail(`${logName}.notexist`, {
+        // separator: "\n",
+        fromBeginning: true,
+      });
+    } catch (error) {
+      console.log(error);
+      console.log(
+        "A missing log file at nvim startup is typically the sign of an invalid nvim config file. ",
+      );
+      code = 3;
+      process.exit(code);
+    }
     tailTest.on("line", function (data: string) {
       console.log(`neovim test: ${data}`);
       if (data.includes("==== TESTS FINISHED:")) {
