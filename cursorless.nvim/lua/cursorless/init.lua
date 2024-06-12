@@ -1,25 +1,62 @@
 local function register_functions()
-  local path = require("cursorless.utils").cursorless_nvim_path()
-  -- revert to using forward slashes as works when passed to remote#host#RegisterPlugin()
-  if require("cursorless.utils").is_platform_windows() then
+  local utils = require("cursorless.utils")
+  local path = utils.cursorless_nvim_path()
+  -- revert to using forward slashes as it works when passed to remote#host#RegisterPlugin()
+  if utils.is_platform_windows() then
     path = path:gsub("\\", "/")
   end
-  vim.api.nvim_call_function("RegisterFunctions", { path })
+  vim.fn["remote#host#RegisterPlugin"](
+    "node",
+    path .. "/node/command-server/",
+    {
+      {
+        type = "function",
+        name = "CommandServerLoadExtension",
+        sync = false,
+        opts = vim.empty_dict(),
+      },
+      {
+        type = "function",
+        name = "CommandServerRunCommand",
+        sync = false,
+        opts = vim.empty_dict(),
+      },
+    }
+  )
+  vim.fn["remote#host#RegisterPlugin"](
+    "node",
+    path .. "/node/cursorless-neovim/",
+    {
+      {
+        type = "function",
+        name = "CursorlessLoadExtension",
+        sync = false,
+        opts = vim.empty_dict(),
+      },
+    }
+  )
+  vim.fn["remote#host#RegisterPlugin"]("node", path .. "/node/test-harness/", {
+    {
+      type = "function",
+      name = "TestHarnessRun",
+      sync = false,
+      opts = vim.empty_dict(),
+    },
+  })
 end
 
 -- this triggers loading the node process as well as calling one function
 -- in the cursorless-neovim, command-server and neovim-registry extensions
 -- in order to initialize them
 local function load_extensions()
-  vim.api.nvim_call_function("CursorlessLoadExtension", {})
+  vim.fn.CursorlessLoadExtension()
 
   if os.getenv("CURSORLESS_MODE") == "test" then
     -- make sure cursorless is loaded before starting the tests
-    -- see https://neovim.io/doc/user/various.html#%3Asleep
-    vim.cmd([[sleep 1]])
-    vim.api.nvim_call_function("TestHarnessRun", {})
+    vim.uv.sleep(1000)
+    vim.fn.TestHarnessRun()
   else
-    vim.api.nvim_call_function("CommandServerLoadExtension", {})
+    vim.fn.CommandServerLoadExtension()
   end
 end
 
@@ -65,11 +102,6 @@ local function configure_command_server_shortcut()
 end
 
 local function setup()
-  vim.cmd(
-    "source "
-      .. require("cursorless.utils").cursorless_nvim_path()
-      .. "/vim/cursorless.vim"
-  )
   register_functions()
   load_extensions()
   configure_command_server_shortcut()

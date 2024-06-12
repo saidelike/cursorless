@@ -2,7 +2,7 @@ local M = {}
 
 -- :lua print(require('cursorless.utils').is_platform_windows())
 function M.is_platform_windows()
-  return package.config:sub(1, 1) == "\\"
+  return vim.uv.os_uname().version:find("Windows")
 end
 
 -- :lua print(require('cursorless.utils').get_path_separator())
